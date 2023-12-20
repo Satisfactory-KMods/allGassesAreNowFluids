@@ -11,7 +11,7 @@
  * 
  */
 UCLASS(Blueprintable)
-class ALLFLUIDSAREGASSES_API UAGAFWorldModule : public UKBFLGameInstanceModule
+class ALLGASSESARENOWFLUIDS_API UAGAFWorldModule : public UKBFLGameInstanceModule
 {
 	GENERATED_BODY()
 

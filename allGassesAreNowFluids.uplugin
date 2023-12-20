@@ -1,41 +1,49 @@
 {
-	"FileVersion": 3,
-	"Version": 2,
-	"VersionName": "1.0.0",
-	"SemVersion": "1.0.0",
-	"FriendlyName": "All Gasses Are Fluids",
-	"Description": "Add",
-	"Category": "Modding",
-	"CreatedBy": "Kyri123",
-	"CreatedByURL": "",
-	"DocsURL": "",
-	"MarketplaceURL": "",
-	"SupportURL": "",
-	"CanContainContent": true,
-	"IsBetaVersion": false,
-	"IsExperimentalVersion": false,
-	"Installed": false,
-	"Modules": [
-		{
-			"Name": "allGassesAreNowFluids",
-			"Type": "Runtime",
-			"LoadingPhase": "Default"
-		}
-	],
-	"Plugins": [
-		{
-			"Name": "SML",
-			"SemVersion": "^3.6.1",
-			"Enabled": false,
-			"BasePlugin": false
-		},
-		{
-			"Name": "KBFL",
-			"Enabled": true,
-			"SemVersion": "^2.2.0",
-			"BasePlugin": false
-		}
-	],
-	"RemoteVersionRange": "",
-	"AcceptsAnyRemoteVersion": false
+  "FileVersion": 3,
+  "Version": 2,
+  "VersionName": "1.0.0",
+  "SemVersion": "1.0.0",
+  "FriendlyName": "All Gasses Are Fluids",
+  "Description": "Add",
+  "Category": "Modding",
+  "CreatedBy": "Kyri123",
+  "CreatedByURL": "",
+  "DocsURL": "",
+  "MarketplaceURL": "",
+  "SupportURL": "",
+  "CanContainContent": true,
+  "IsBetaVersion": false,
+  "IsExperimentalVersion": false,
+  "Installed": false,
+  "Modules": [
+    {
+      "Name": "allGassesAreNowFluids",
+      "Type": "Runtime",
+      "LoadingPhase": "Default"
+    }
+  ],
+  "Plugins": [
+    {
+      "Name": "SML",
+      "SemVersion": "^3.6.1",
+      "Enabled": false,
+      "BasePlugin": false
+    },
+    {
+      "Name": "KBFL",
+      "Enabled": true,
+      "SemVersion": "^2.2.0",
+      "BasePlugin": false
+    },
+    {
+      "Name": "KPrivateCodeLib",
+      "SemVersion": "^2.2.0",
+      "bIsOptional": false,
+      "bIsBasePlugin": false,
+      "Enabled": true,
+      "BasePlugin": false
+    }
+  ],
+  "RemoteVersionRange": "",
+  "AcceptsAnyRemoteVersion": false
 }
