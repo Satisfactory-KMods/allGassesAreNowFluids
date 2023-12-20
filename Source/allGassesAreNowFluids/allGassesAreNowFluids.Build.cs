@@ -1,8 +1,8 @@
 ﻿using UnrealBuildTool;
 
-public class allGassesAreFluids : ModuleRules
+public class allGassesAreNowFluids : ModuleRules
 {
-	public allGassesAreFluids(ReadOnlyTargetRules Target) : base(Target)
+	public allGassesAreNowFluids(ReadOnlyTargetRules Target) : base(Target)
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 

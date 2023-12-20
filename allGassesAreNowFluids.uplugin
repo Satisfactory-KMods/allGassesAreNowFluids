@@ -17,7 +17,7 @@
 	"Installed": false,
 	"Modules": [
 		{
-			"Name": "allGassesAreFluids",
+			"Name": "allGassesAreNowFluids",
 			"Type": "Runtime",
 			"LoadingPhase": "Default"
 		}

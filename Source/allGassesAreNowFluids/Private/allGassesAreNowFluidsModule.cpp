@@ -1,4 +1,4 @@
-﻿#include "allGassesAreFluidsModule.h"
+﻿#include "allGassesAreNowFluidsModule.h"
 
 #include "Buildables/FGBuildableGenerator.h"
 #include "Buildables/FGBuildableGeneratorFuel.h"
@@ -9,7 +9,7 @@ DECLARE_LOG_CATEGORY_EXTERN(AFAGHookLog, Log, All);
 
 DEFINE_LOG_CATEGORY(AFAGHookLog);
 
-void FallGassesAreFluidsModule::StartupModule() {
+void FallGassesAreNowFluidsModule::StartupModule() {
 #if !WITH_EDITOR
 	SUBSCRIBE_METHOD_VIRTUAL( AFGBuildableGeneratorFuel::BeginPlay, GetMutableDefault<AFGBuildableGeneratorFuel>(), [](CallScope<void(*)(AFGBuildableGeneratorFuel*)>& scope, AFGBuildableGeneratorFuel* selfref) { if(selfref->mFuelResourceForm == EResourceForm::RF_LIQUID) { selfref->mFuelResourceForm = EResourceForm::RF_LIQUID; UE_LOG(AFAGHookLog, Log, TEXT("make FLUID Valid: %s"), *selfref->GetName()); } } );
 
@@ -17,4 +17,4 @@ void FallGassesAreFluidsModule::StartupModule() {
 #endif
 }
 
-IMPLEMENT_GAME_MODULE(FallGassesAreFluidsModule, allGassesAreFluids);
+IMPLEMENT_GAME_MODULE(FallGassesAreNowFluidsModule, allGassesAreNowFluids);
