@@ -71,25 +71,25 @@ jobs:
               env:
                 PLUGIN: "KPrivateCodeLib"
               run: |
-                & ${{ env.UE_PATH }}\Engine\Build\BatchFiles\RunUAT.bat -merge -ScriptsForProject="$PWD\SML\FactoryGame.uproject" PackagePlugin -server -serverplatform=${{ secrets.SERVER_PLATFORMS }}  -Project="$PWD\SML\FactoryGame.uproject" -dlcname="${{ env.PLUGIN }}" -build -clientconfig=Shipping -serverconfig=Shipping -platform=Win64 -nocompileeditor -installed
+                & ${{ env.UE_PATH }}\Engine\Build\BatchFiles\RunUAT.bat -ScriptsForProject="$PWD\SML\FactoryGame.uproject" PackagePlugin -server -serverplatform=${{ secrets.SERVER_PLATFORMS }}  -Project="$PWD\SML\FactoryGame.uproject" -dlcname="${{ env.PLUGIN }}" -build -clientconfig=Shipping -serverconfig=Shipping -platform=Win64 -nocompileeditor -installed -merge
 
             - name: Package allGassesAreNowFluids
               env:
                 PLUGIN: "allGassesAreNowFluids"
               run: |
-                & ${{ env.UE_PATH }}\Engine\Build\BatchFiles\RunUAT.bat -merge -ScriptsForProject="$PWD\SML\FactoryGame.uproject" PackagePlugin -server -serverplatform=${{ secrets.SERVER_PLATFORMS }}  -Project="$PWD\SML\FactoryGame.uproject" -dlcname="${{ env.PLUGIN }}" -build -clientconfig=Shipping -serverconfig=Shipping -platform=Win64 -nocompileeditor -installed
+                & ${{ env.UE_PATH }}\Engine\Build\BatchFiles\RunUAT.bat -ScriptsForProject="$PWD\SML\FactoryGame.uproject" PackagePlugin -server -serverplatform=${{ secrets.SERVER_PLATFORMS }}  -Project="$PWD\SML\FactoryGame.uproject" -dlcname="${{ env.PLUGIN }}" -build -clientconfig=Shipping -serverconfig=Shipping -platform=Win64 -nocompileeditor -installed -merge
 
             - name: Package KUI
               env:
                 PLUGIN: "KUI"
               run: |
-                & ${{ env.UE_PATH }}\Engine\Build\BatchFiles\RunUAT.bat -merge -ScriptsForProject="$PWD\SML\FactoryGame.uproject" PackagePlugin -server -serverplatform=${{ secrets.SERVER_PLATFORMS }}  -Project="$PWD\SML\FactoryGame.uproject" -dlcname="${{ env.PLUGIN }}" -build -clientconfig=Shipping -serverconfig=Shipping -platform=Win64 -nocompileeditor -installed
+                & ${{ env.UE_PATH }}\Engine\Build\BatchFiles\RunUAT.bat -ScriptsForProject="$PWD\SML\FactoryGame.uproject" PackagePlugin -server -serverplatform=${{ secrets.SERVER_PLATFORMS }}  -Project="$PWD\SML\FactoryGame.uproject" -dlcname="${{ env.PLUGIN }}" -build -clientconfig=Shipping -serverconfig=Shipping -platform=Win64 -nocompileeditor -installed -merge
   
             - name: Package KBFL
               env:
                 PLUGIN: "KBFL"
               run: |
-                & ${{ env.UE_PATH }}\Engine\Build\BatchFiles\RunUAT.bat -merge -ScriptsForProject="$PWD\SML\FactoryGame.uproject" PackagePlugin -server -serverplatform=${{ secrets.SERVER_PLATFORMS }}  -Project="$PWD\SML\FactoryGame.uproject" -dlcname="${{ env.PLUGIN }}" -build -clientconfig=Shipping -serverconfig=Shipping -platform=Win64 -nocompileeditor -installed
+                & ${{ env.UE_PATH }}\Engine\Build\BatchFiles\RunUAT.bat -ScriptsForProject="$PWD\SML\FactoryGame.uproject" PackagePlugin -server -serverplatform=${{ secrets.SERVER_PLATFORMS }}  -Project="$PWD\SML\FactoryGame.uproject" -dlcname="${{ env.PLUGIN }}" -build -clientconfig=Shipping -serverconfig=Shipping -platform=Win64 -nocompileeditor -installed -merge
  
             # ----------------------------------------------------------------------
             #                    END OF BUILDING PLUGINS
@@ -239,12 +239,20 @@ jobs:
         runs-on: ubuntu-latest
         strategy:
           matrix:
-            mod: ["KBFL", "KPrivateCodeLib", "KUI"]
+            mod: 
+              - id: "DM5DnSogEL6j74"
+                name: "KBFL"
+              - id: "4hzxQEtR7MAj2d"
+                name: "KLib"
+              - id: "39Uf6nnbDa9Rd1"
+                name: "KUI"
+              - id: "8aF2R6MQ77tqe5"
+                name: "KPrivateCodeLib"
         steps:
           - name: Checkout Repo
             uses: actions/checkout@v3
             with:
-              repository: 'Satisfactory-KMods/${{ matrix.mod }}'
+              repository: 'Satisfactory-KMods/${{ matrix.mod.name }}'
               token: ${{ secrets.PAT }}
 
           - name: Install ficsit-cli and jq
@@ -255,7 +263,7 @@ jobs:
               sudo dpkg -i ficsit_linux_amd64.deb
 
           - name: Download Zip
-            run: wget -q -O mod.zip ${{ secrets.CACHE_WEB_ADDR }}/${{ env.MAIN_MOD }}/plugins/${{ matrix.mod }}/${{ matrix.mod }}.zip
+            run: wget -q -O mod.zip ${{ secrets.CACHE_WEB_ADDR }}/${{ env.MAIN_MOD }}/plugins/${{ matrix.mod.name }}/${{ matrix.mod.name }}.zip
           
           - name: Install Node.js
             uses: actions/setup-node@v3
@@ -278,11 +286,11 @@ jobs:
           - name: Release with ficsit-cli
             id: ficsit
             run: |
-              VERSION=$(cat ${{ matrix.mod }}.uplugin | jq -r '.SemVersion')
+              VERSION=$(cat ${{ matrix.mod.name }}.uplugin | jq -r '.SemVersion')
               CHANGELOGPATH=changelogs/$VERSION.md
               if test -f "$CHANGELOGPATH"; then
                 CHANGELOG=$(cat $CHANGELOGPATH)
-                ficsit smr upload --api-key "${{ secrets.FICSIT_TOKEN }}" "${{ env.MOD_ID }}" "mod.zip" "$CHANGELOG"
+                ficsit smr upload --api-key "${{ secrets.FICSIT_TOKEN }}" "${{ matrix.mod.id }}" "mod.zip" "$CHANGELOG"
                 echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
                 exit 0
               fi 
